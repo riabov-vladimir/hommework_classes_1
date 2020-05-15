@@ -43,11 +43,14 @@ class Car(FourWheelsVehicle, ExpensiveMixin):
     def __gt__(self, other):
         return self.speed > other.speed
 
-
-car0 = Car('red', 50, 10)
+# car0 = Car('red', 50, 10)
 car1 = Car('blue', 50, 11)
+#
+# car0.accelerate(10)
+# car1.accelerate(20)
+#
+# print(car0 < car1)
 
-car0.accelerate(10)
-car1.accelerate(20)
 
-print(car0 < car1)
+print(Car.__dict__)
+print(car1.__dict__)

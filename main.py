@@ -1,26 +1,21 @@
-# коз 2 "Рога" и "Копыта"
-# корову "Маньку"
-# овец 2 "Барашек" и "Кудрявый"
-# кур 2 "Ко-Ко" и "Кукареку"
-# утку "Кряква"
-# гусей 2 "Серый" и "Белый"
-
 class Creature:
-
   age = 0 # новорождённое существо
   weight = 0 # у каждого существа есть вес
   hunger = 'hungry' # допустим каждое существо изначально голодное,
   # его можно покормить методом feed() и тогда оно станет сытым ('fed')
-  says = None # какие звуки издаёт существо
-  location = None
   vaccine = 'not vaccinated' # существа рождаются непривитыми, им можно делать прививки методом vaccinate()
-  clean_state = 'dirty' # ну существо допустим изначально у нас грязненькое такое
 
+  def __init__(self, name, gender):
+    self.name = name
+    self.gender = gender
+    self.weight = weight
+
+  def say_hi(self):
+    print(f'{self.name} says "{self.talk}"')
 
   def feed(self):
     self.hunger = 'fed'
     print('Creature is fed!')
-  pass
 
   def wash(self):
     self.clean_state = 'clean'
@@ -30,45 +25,69 @@ class Creature:
     self.vaccine = 'vaccinated'
     print(self, 'is vaccinated now! More unlikely to get sick')
 
+
 class Bird(Creature):
-  # крылья
-  # несёт яйца
-  # можно собрать яйца
-  pass
+  eggs = None
+
+  def nest(self):
+    self.eggs += 1
+
+  def gather_eggs(self):
+    self.eggs = 0
+
 
 class Animal(Creature):
-  # даёт молоко
-  # можно доить
-
-  pass
+  def get_milk(self):
+    self.milk = 0
 
 class Goose(Bird):
-  pass
+  name = None
+  weight = 4
+  eggs = 5
+  talk = 'Ga-ga-ga!'
 
 class Duck(Bird):
-  pass
+  weight = 3
+  eggs = 10
+  talk = 'Quack-quack!'
 
 class Chicken(Bird):
-  pass
+  weight = 4
+  eggs = 15
+  talk = 'Co-co-co!'
 
 class Sheep(Animal):
-  pass
+  weight = 120
+  milk = 3
+  talk = 'Beeee!'
 
 class Goat(Animal):
-  pass
+  weight = 100
+  milk = 5
+  talk = 'Meeeeeh!'
 
 class Cow(Animal):
-  pass
+  weight = 300
+  milk = 10
+  talk = 'Moooo!'
 
-print('moo')
 
-creature1 = Creature()
-creature2 = Creature()
 
-print(creature1.vaccine)
-print(creature2.vaccine)
+cow1 = Cow('Манька', 'female')
+goat1 = Goat('Рога', 'male')
+goat2 = Goat('Копыта', 'male')
+sheep1 = Sheep('Барашек', 'male')
+sheep2 = Sheep('Кудрявый', 'male')
+chicken1 = Chicken('Ко-Ко', 'female')
+chicken2 = Chicken('Кукареку', 'male')
+duck1 = Duck('Кряква', 'female')
+goose1 = Goose('Серый', 'male')
+goose2 = Goose('Белый', 'male')
 
-creature2.vaccinate()
 
-print(creature1.vaccine)
-print(creature2.vaccine)
+goose2.say_hi()
+
+# creatures_list = [cow1, goat1, goat2, sheep1, sheep2, chicken1, chicken2, duck1, goose1, goose2]
+#
+# for creature in creatures_list:
+#   print(creature.weight)
