@@ -116,9 +116,10 @@ def main():
       vaccination(class_instances)
     elif user_input == 'bye':
       print('Спасибо за помощь! Увидимся следующим летом!')
+      break
 
 def stats(creatures_list):
-  print('Самое тяжелое сущ-во на ферме -', max(creatures_list).name)
+  print(f'Самое тяжелое из них - {max(creatures_list).name}, {max(creatures_list).weight} кг')
   total_weight = []
   for creature in creatures_list:
     total_weight.append(creature.weight)
@@ -209,11 +210,8 @@ def class_list(creatures_list, target_class):
   return class_instances
 
 
-goods(creatures_list)
+target_class = filter_creatures_list()
 
-#
-# target_class = filter_creatures_list()
-#
-# class_instances = class_list(creatures_list, target_class)
-#
-# main()
+class_instances = class_list(creatures_list, target_class)
+
+main()
