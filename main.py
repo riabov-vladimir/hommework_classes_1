@@ -18,7 +18,7 @@ class Creature:
 
   def vaccinate(self):
     self.vaccine = 'vaccinated'
-    print(self, 'is vaccinated now! More unlikely to get sick')
+    print(self.name, 'is vaccinated now! More unlikely to get sick')
 
   def gather(self):
     if isinstance(self, Bird):
@@ -27,6 +27,17 @@ class Creature:
       self.milk = 0
     elif isinstance(self, Sheep):
       self.wool = 0
+
+  def goods(self):
+    if isinstance(self, Bird):
+      if self.gender == 'female':
+        print(f'{self.name} снесла {self.eggs} яиц')
+    elif isinstance(self, Cow):
+      print(f'C {self.name[:-1]}и можно собрать {self.milk}л молока')
+    elif isinstance(self, Sheep):
+      print(f'{self.name} стал очень лохматый! С него можно собрать {self.wool}дцм^3 шерсти')
+    elif isinstance(self, Goat):
+      print(f'C {self.name} можно собрать {self.milk}л молока')
 
   def __gt__(self, other):
     return self.weight > other.weight
@@ -84,20 +95,25 @@ goose2 = Goose('Белый', 'male', 5)
 creatures_list = [cow1, goat1, goat2, sheep1, sheep2, chicken1, chicken2, duck1, goose1, goose2]
 
 def main():
-  user_input = input('Что мне сделать, дядюшка Джо?')
+
   while True:
+    user_input = input('Что мне сделать, дядюшка Джо? ')
     if user_input == 'hi':
-      hi()
-    elif user_input == 'hungry':
-      check_hunger()
-    elif user_input == 'dinner':
-      dinner()
+      hi(class_instances)
+    elif user_input == 'is hungry':
+      check_hunger(class_instances)
+    elif user_input == 'feed':
+      dinner(class_instances)
+    elif user_input == 'gather':
+      gather(class_instances)
+    elif user_input == 'check goods':
+      goods(class_instances)
     elif user_input == 'stats':
       stats(creatures_list)
     elif user_input == 'check vaccine':
-      check_vaccination()
+      check_vaccination(class_instances)
     elif user_input == 'vaccinate':
-      vaccination()
+      vaccination(class_instances)
     elif user_input == 'bye':
       print('Спасибо за помощь! Увидимся следующим летом!')
 
@@ -123,6 +139,13 @@ def dinner(creatures=creatures_list):
   for creature in creatures:
     creature.feed()
 
+def gather(creatures=creatures_list):
+  for creature in creatures:
+    creature.gather()
+
+def goods(creatures=creatures_list):
+  for creature in creatures:
+    creature.goods()
 
 def vaccination(creatures=creatures_list):
   for creature in creatures:
@@ -186,8 +209,11 @@ def class_list(creatures_list, target_class):
   return class_instances
 
 
-target_class = filter_creatures_list()
+goods(creatures_list)
 
-class_instances = class_list(creatures_list, target_class)
-
-main(class_instances)
+#
+# target_class = filter_creatures_list()
+#
+# class_instances = class_list(creatures_list, target_class)
+#
+# main()
