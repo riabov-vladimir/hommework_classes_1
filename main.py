@@ -123,11 +123,11 @@ def filter_creatures_list():
     elif user_input == 'коровы':
       target_class = Cow
       break
-    elif user_input == 'козлы':
-      target_class = Sheep
+    elif user_input == 'козы':
+      target_class = Goat
       break
     elif user_input == 'овцы':
-      target_class = Goose
+      target_class = Sheep
       break
     elif user_input == 'гуси':
       target_class = Goose
@@ -142,9 +142,6 @@ def filter_creatures_list():
       target_class = Creature
       break
   return target_class
-
-
-
 
 
 
@@ -172,9 +169,7 @@ def class_list(creatures_list, target_class): # если не сделаю кл�
   for creature in creatures_list:
     if isinstance(creature, target_class) == True:
       class_instances.append(creature)
-      return class_instances
-
-  print('Работаем с:', *map(lambda x: x.name, class_instances), sep=', ')
+  print(*map(lambda x: x.name, class_instances))
 
 def vaccination(creatures=creatures_list):
   for creature in creatures:
@@ -186,6 +181,8 @@ def check_vaccination(creatures=creatures_list):
 
 # for creature in creatures_list:
 #   print(f'{creature.name} - {creature.hunger}')
-class_list(creatures_list, Bird) # подсчёт птиц без user_input !WORKS OK!
+ # подсчёт птиц без user_input !WORKS OK!
+target_class = filter_creatures_list()
+class_list(creatures_list, target_class)
 
 
