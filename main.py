@@ -29,6 +29,8 @@ class Creature:
     elif isinstance(self, Sheep):
       self.wool = 0
 
+  def __gt__(self, other):
+    return self.weight > other.weight
 
 class Bird(Creature):
 
@@ -179,10 +181,9 @@ def check_vaccination(creatures=creatures_list):
   for creature in creatures:
     print(f'{creature.name} - {creature.vaccine}')
 
-# for creature in creatures_list:
-#   print(f'{creature.name} - {creature.hunger}')
- # подсчёт птиц без user_input !WORKS OK!
-target_class = filter_creatures_list()
-class_list(creatures_list, target_class)
+
+# target_class = filter_creatures_list() #                     CHECK
+# class_list(creatures_list, target_class)
 
 
+print('Самое тяжелое сущ-во на ферме -',max(creatures_list).name)
