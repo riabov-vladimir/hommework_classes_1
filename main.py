@@ -15,7 +15,7 @@ class Creature:
 
   def feed(self):
     self.hunger = 'fed'
-    print('Creature is fed!')
+    print(f'{self.name} is fed!')
 
   def vaccinate(self):
     self.vaccine = 'vaccinated'
@@ -94,21 +94,77 @@ def main():
   user_input = input('Что мне сделать, дядюшка Джо?')
   while True:
     if user_input == 'hi':
-      hi_everyone(creatures_list)
+      hi()
+    elif user_input == 'hungry':
+      check_hunger()
+    elif user_input == 'dinner':
+      dinner()
     elif user_input == 'bye':
       print('Спасибо за помощь! Увидимся следующим летом!')
 
-def hi_everyone(class_list):
+def filtered_creature_list(target_class):
+    class_instances = []
+    for creature in creatures_list:
+      if isinstance(creature, target_class) == True:
+        class_instances.append(creature)
+        print('Работаем с:', *map(lambda x: x.name, class_instances), sep=', ')
+        return class_instances
 
-  for creature in creatures_list:
+def filter_creatures_list():
+  user_input = input('C какими зверушками будем взаимодействовать? ')
+
+  while True:
+    if user_input == 'млекопитающие':
+      target_class = Animal
+      break
+    elif user_input == 'птицы':
+      target_class = Bird
+      break
+    elif user_input == 'коровы':
+      target_class = Cow
+      break
+    elif user_input == 'козлы':
+      target_class = Sheep
+      break
+    elif user_input == 'овцы':
+      target_class = Goose
+      break
+    elif user_input == 'гуси':
+      target_class = Goose
+      break
+    elif user_input == 'утки':
+      target_class = Duck
+      break
+    elif user_input == 'курицы':
+      target_class = Chicken
+      break
+    elif user_input == 'все':
+      target_class = Creature
+      break
+  return target_class
+
+
+
+
+
+
+
+
+
+def hi(creatures=creatures_list):
+
+  for creature in creatures:
     creature.say_hi()
 
   print('А я им в ответ: "Привет зверушки!"')
 
+def check_hunger(creatures=creatures_list):
+  for creature in creatures:
+    print(f'{creature.name} - {creature.hunger}')
+
 def dinner(creatures=creatures_list):
   for creature in creatures:
     creature.feed()
-  print('')
 
 def class_list(creatures_list, target_class): # если не сделаю классный инпут, реализую через main()
   # target_class = classes_list[input('Class index: ')]
@@ -116,8 +172,20 @@ def class_list(creatures_list, target_class): # если не сделаю кл�
   for creature in creatures_list:
     if isinstance(creature, target_class) == True:
       class_instances.append(creature)
+      return class_instances
 
-  print(*map(lambda x: x.name, class_instances), sep=', ')
+  print('Работаем с:', *map(lambda x: x.name, class_instances), sep=', ')
 
-# class_list(creatures_list, Bird) # подсчёт птиц без user_input !WORKS OK!
+def vaccination(creatures=creatures_list):
+  for creature in creatures:
+    creature.vaccinate()
+
+def check_vaccination(creatures=creatures_list):
+  for creature in creatures:
+    print(f'{creature.name} - {creature.vaccine}')
+
+# for creature in creatures_list:
+#   print(f'{creature.name} - {creature.hunger}')
+class_list(creatures_list, Bird) # подсчёт птиц без user_input !WORKS OK!
+
 
