@@ -1,8 +1,14 @@
-class Creature:
+from abc import ABC, abstractmethod
+
+class Creature(ABC):
   age = 0 # новорождённое существо
   weight = 0 # у каждого существа есть вес
   hunger = 'hungry' # допустим каждое существо изначально голодное,
   vaccine = 'not vaccinated' # существа рождаются непривитыми, им можно делать прививки методом vaccinate()
+
+  @abstractmethod
+  def animal_voice(self):
+    pass
 
   def __init__(self, name, gender, weight):
     self.name = name
