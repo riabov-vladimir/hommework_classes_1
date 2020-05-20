@@ -1,4 +1,6 @@
-class Creature:
+from abc import ABC, abstractmethod
+
+class Creature(ABC):
   age = 0 # новорождённое существо
   weight = 0 # у каждого существа есть вес
   hunger = 'hungry' # допустим каждое существо изначально голодное,
@@ -19,38 +21,37 @@ class Creature:
   def vaccinate(self):
     self.vaccine = 'vaccinated'
     print(self.name, 'is vaccinated now! More unlikely to get sick')
-
+  @abstractmethod
   def gather(self):
-    if isinstance(self, Bird):
-      self.eggs = 0
-    elif isinstance(self, Cow or Goat):
-      self.milk = 0
-    elif isinstance(self, Sheep):
-      self.wool = 0
+    pass
+# if isinstance(self, Bird):
+#   self.eggs = 0
+# elif isinstance(self, Cow or Goat):
+#   self.milk = 0
+# elif isinstance(self, Sheep):
+#   self.wool = 0
 
-  def goods(self): # переделать
-    if isinstance(self, Bird):
-      if self.gender == 'female':
-        print(f'{self.name} снесла {self.eggs} яиц')
-    elif isinstance(self, Cow):
-      print(f'C {self.name[:-1]}и можно собрать {self.milk}л молока')
-    elif isinstance(self, Sheep):
-      print(f'{self.name} стал очень лохматый! С него можно собрать {self.wool}дцм^3 шерсти')
-    elif isinstance(self, Goat):
-      print(f'C {self.name} можно собрать {self.milk}л молока')
+# def goods(self): # переделать
+# if isinstance(self, Bird):
+#   if self.gender == 'female':
+#     print(f'{self.name} снесла {self.eggs} яиц')
+# elif isinstance(self, Cow):
+#   print(f'C {self.name[:-1]}и можно собрать {self.milk}л молока')
+# elif isinstance(self, Sheep):
+#   print(f'{self.name} стал очень лохматый! С него можно собрать {self.wool}дцм^3 шерсти')
+# elif isinstance(self, Goat):
+#   print(f'C {self.name} можно собрать {self.milk}л молока')
 
   def __gt__(self, other):
     return self.weight > other.weight
 
-  def __add__(self, other):    # так и не понял какой метод выбрать для подсчёта 2-х и более слогаемых((
+  def __add__(self, other):
     return self.weight + other.weight
 
 class Bird(Creature):
 
-  def nest(self):
-    self.eggs += 1
 
-  def gather_eggs(self):
+  def gather(self):
     self.eggs = 0
 
 class Animal(Creature):
