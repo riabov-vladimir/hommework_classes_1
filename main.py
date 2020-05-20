@@ -28,7 +28,7 @@ class Creature:
     elif isinstance(self, Sheep):
       self.wool = 0
 
-  def goods(self):
+  def goods(self): # переделать
     if isinstance(self, Bird):
       if self.gender == 'female':
         print(f'{self.name} снесла {self.eggs} яиц')
