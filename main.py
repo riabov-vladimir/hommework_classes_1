@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
 class Creature(ABC):
-  age = 0 # новорождённое существо
+
   weight = 0 # у каждого существа есть вес
-  hunger = 'hungry' # допустим каждое существо изначально голодное,
-  vaccine = 'not vaccinated' # существа рождаются непривитыми, им можно делать прививки методом vaccinate()
+  hunger = 'голоден(на)' # допустим каждое существо изначально голодное, их можно покормить методом feed()
+  vaccine = 'не привит(а)' # существа рождаются непривитыми, им можно делать прививки методом vaccinate()
 
   def __init__(self, name, gender, weight):
     self.name = name
@@ -12,75 +12,112 @@ class Creature(ABC):
     self.weight = weight
 
   def say_hi(self):
-    print(f'{self.name} says "{self.talk}"')
+    print(f'{self.name} говорит "{self.talk()}"')
 
   def feed(self):
-    self.hunger = 'fed'
-    print(f'{self.name} is fed!')
+    self.hunger = 'сыт(а)'
+    print(f'{self.name} накормлен(а)!')
 
   def vaccinate(self):
-    self.vaccine = 'vaccinated'
-    print(self.name, 'is vaccinated now! More unlikely to get sick')
+    self.vaccine = 'привит(а)'
+    print(self.name, 'теперь привит(а)! Существенно снижена вероятность заболеть')
+
   @abstractmethod
   def gather(self):
+    '''
+    этот метод будет реализован у классов дающих ОДИНАКОВЫЕ продукты
+    (например для всех птиц как класса он будет реализован, а для животных он всё ещё будет абстрактным,
+    так как некоторые животные дают молоко, а некоторые шерсть)
+    '''
     pass
-# if isinstance(self, Bird):
-#   self.eggs = 0
-# elif isinstance(self, Cow or Goat):
-#   self.milk = 0
-# elif isinstance(self, Sheep):
-#   self.wool = 0
 
-# def goods(self): # переделать
-# if isinstance(self, Bird):
-#   if self.gender == 'female':
-#     print(f'{self.name} снесла {self.eggs} яиц')
-# elif isinstance(self, Cow):
-#   print(f'C {self.name[:-1]}и можно собрать {self.milk}л молока')
-# elif isinstance(self, Sheep):
-#   print(f'{self.name} стал очень лохматый! С него можно собрать {self.wool}дцм^3 шерсти')
-# elif isinstance(self, Goat):
-#   print(f'C {self.name} можно собрать {self.milk}л молока')
+  @abstractmethod
+  def goods(self):
+    pass
 
-  def __gt__(self, other):
+  def __gt__(self, other): # метод для сравнения создания с другим созданием
     return self.weight > other.weight
 
-  def __add__(self, other):
+  def __add__(self, other): # метод для сложения созданий по их весу
     return self.weight + other.weight
+
 
 class Bird(Creature):
 
+  def talk(self):
+    pass
 
-  def gather(self):
+  def gather(self): #
     self.eggs = 0
 
+  def goods(self):
+    return self.eggs
+
 class Animal(Creature):
-  def get_milk(self):
-    self.milk = 0
+
+  def talk(self): # метод "Подай голос"
+    pass
+
+  def goods(self): # метод отображает сколько продукта напопило животное
+    pass
+
+  def gather(self): # метод сбора накопленных продуктов
+    pass
+
 
 class Goose(Bird):
   eggs = 5
-  talk = 'Ga-ga-ga!'
+  def talk(self):
+    return 'Ga-ga-ga!'
+
 
 class Duck(Bird):
   eggs = 10
-  talk = 'Quack-quack!'
+  def talk(self):
+    return 'Quack-quack!'
+
 
 class Chicken(Bird):
   eggs = 15
-  talk = 'Co-co-co!'
+  def talk(self):
+    return 'Co-co-co!'
+
 
 class Sheep(Animal):
   wool = 20
-  talk = 'Beeee!'
+
+  def talk(self):
+    return 'Beeee!'
+
+  def goods(self):
+    return self.wool
+
+  def gather(self):
+    self.wool = 0
+
 
 class Goat(Animal):
   milk = 5
-  talk = 'Meeeeeh!'
+
+  def talk(self):
+    return 'Meeeeeh!'
+
+  def gather(self):
+    self.milk = 0
+
+  def goods(self):
+    return self.milk
 
 class Cow(Animal):
   milk = 10
-  talk = 'Moooo!'
+  def talk(self):
+    return 'Moooo!'
+
+  def gather(self):
+    self.milk = 0
+
+  def goods(self):
+    return self.milk
 
 cow1 = Cow('Манька', 'female', 300)
 goat1 = Goat('Рога', 'male', 89)
@@ -166,7 +203,9 @@ def check_vaccination(creatures=creatures_list):
           return class_instances
 
 def filter_creatures_list():
-  user_input = input('C какими зверушками будем взаимодействовать? ')
+  print('Для начала выберем класс, c которым хотим взаимодействовать.\nВарианты: млекопитающие, птицы, утки, гуси, '
+        'куры, коровы, овцы, козы.\nДля взаимодействия со всеми сразу напишите "все" или нажмите ENTER')
+  user_input = input('--> ')
 
   while True:
     if user_input == 'млекопитающие':
@@ -216,3 +255,5 @@ target_class = filter_creatures_list()
 class_instances = class_list(creatures_list, target_class)
 
 main()
+
+# filter(lambda x, y: isinstance(x, y),
