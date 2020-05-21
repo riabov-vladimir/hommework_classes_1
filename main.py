@@ -275,5 +275,3 @@ target_class = filter_creatures_list()
 class_instances = class_list(creatures_list, target_class)
 
 main()
-
-# filter(lambda x, y: isinstance(x, y),
